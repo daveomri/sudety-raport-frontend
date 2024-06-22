@@ -62,6 +62,10 @@ export default function SectionPage(props: Readonly<{
     );
   }
 
+  if (posts === undefined || posts.length === 0) {
+    return <div></div>;
+  }
+
   return (
     <div>
       {

@@ -45,6 +45,9 @@ export default function LandingPageRow(props: Readonly<{
     </div>
   );
   }
+  else if (posts === undefined || posts.length === 0) {
+    return <div></div>;
+  }
 
   return (
   <div>

@@ -2,9 +2,15 @@
     height: 4em;
     display: flex;
     margin: 0;
-    background-color: rgba(10, 100, 120, 0.3) !important;
-    border-bottom: 1px solid black;
+    background-color: rgba(1, 1, 1, 0.5) !important;
+    /* border-bottom: 1px solid rgba(0, 0, 0, 0.5); */
     box-shadow: none !important;
+}
+
+.borderBottom {
+    min-height: 1px;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: invert(100%);
 }
 
 .site-right-side {
@@ -16,30 +22,38 @@
 
 .site-logo-grid {
     height: 4em;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     text-align: left;
     padding-left: 1em;
     color: black;
 }
 
+.site-logo-grid a {
+    height: 3em;
+}
+
+.site-logo-grid a img {
+    height: 3em;
+}
+
 .site-nav-grid {
-    height: 4em;
-    width: 8em;
-    display: flex;
-    text-align: center;
+    width: 4em;
+    display: inline-flex;
     align-items: center;
-    border-left: 1px solid black;
+    border-left: 1px solid rgba(0, 0, 0, 0.5);
 }
 
 .site-lang-switch {
     height: 4em;
     width: 6em;
-    display: flex;
-    text-align: center;
+    display: inline-flex;
     align-items: center;
-    border-left: 1px solid black;
-    padding-left: 1em;
+}
+
+.site-lang-switch div {
+    margin-right: auto;
+    margin-left: auto;
 }
 
 .site-lang-switch button {
@@ -47,6 +61,14 @@
     height: 2.5em;
     background-color: none;
     border: none;
+    margin-left: unset !important;
+    outline: none;
+    box-shadow: none;
+    border-left:  unset !important;
+}
+
+.site-lang-switch button span {
+    margin-left: unset !important;
 }
 
 .app-container {
@@ -55,9 +77,9 @@
 }
 
 .menu-bars {
-    margin-left: 2rem;
+    margin-left: auto;
+    margin-right: auto;
     font-size: 2rem;
-    background: none;
 }
 
 .nav-menu.active {

@@ -11,7 +11,10 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 // import * as FaIcons from 'react-icons/fa'
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+import MenuIcon from '@mui/icons-material/Menu';
 import { Categories, CategoryTranslate } from './Categories';
+
+import logo from '../img/fialovozluty-smaller.png';
 
 import '../styles/Header.css';
 
@@ -85,7 +88,7 @@ export default function Header(props: Readonly<{
             <Grid container>
               <Grid item xs={6} sm={8} md={10} className='site-logo-grid'>
                 <Link to='/'>
-                    Sudety Raport
+                    <img src={logo} alt="Sudety Raport" />
                 </Link>
               </Grid>
               <Grid item xs={6} sm={4} md={2}>
@@ -98,21 +101,25 @@ export default function Header(props: Readonly<{
                       aria-label='language'
                     >
                       <ToggleButton value='cs' aria-label='cs'>
-                        {'cs'}
+                        {'cze'}
                       </ToggleButton>
                       <ToggleButton value='en' aria-label='en'>
-                        {'en'}
+                        {'eng'}
                       </ToggleButton>
                     </ToggleButtonGroup>
                   </div>
                   <div className='site-nav-grid'>
                     <Link to="#" className='menu-bars'>
-                      <Typography variant='h6' component='div' onClick={showSidebar}>
+                      {/* <Typography variant='h6' component='div' onClick={showSidebar}>
                         {!sidebar ? "Menu" : "Close"}
-                      </Typography>
+                      </Typography> */}
+                      <MenuIcon />
                     </Link>
                   </div>
                 </div>
+              </Grid>
+              <Grid item xs={12}>
+                <div className="borderBottom" />
               </Grid>
             </Grid>
           {/* </Toolbar> */}

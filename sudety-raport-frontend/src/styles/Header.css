@@ -5,6 +5,7 @@
     background-color: rgba(1, 1, 1, 0.5) !important;
     /* border-bottom: 1px solid rgba(0, 0, 0, 0.5); */
     box-shadow: none !important;
+    backdrop-filter: blur(5px);
 }
 
 .borderBottom {
@@ -41,7 +42,7 @@
     width: 4em;
     display: inline-flex;
     align-items: center;
-    border-left: 1px solid rgba(0, 0, 0, 0.5);
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .site-lang-switch {
@@ -65,11 +66,13 @@
     outline: none;
     box-shadow: none;
     border-left:  unset !important;
+    backdrop-filter: invert(90%);
 }
 
 .site-lang-switch button span {
     margin-left: unset !important;
 }
+
 
 .app-container {
     padding-top: 4em;
@@ -80,7 +83,9 @@
     margin-left: auto;
     margin-right: auto;
     font-size: 2rem;
+    color: rgba(0, 0, 0, 0.5);
 }
+
 
 .nav-menu.active {
     background-color: rgba(0,0,0,0.5);
@@ -89,10 +94,12 @@
     display: flex;
     justify-content: center;
     position: fixed;
-    top: 0;
+    top: 4em;
+    /* border-top: 1px rgba(0, 0, 0, 0.5); */
     left: 0;
     padding-top: 5em;
-    /* transition: 450ms; */
+    backdrop-filter: invert(90%) blur(5px);
+    /* transition: 1450ms; */
 }
 
 .nav-menu {
@@ -124,6 +131,7 @@
 
 .nav-menu-items {
     width: 100%;
+    padding-left: 0;
 }
 
 .navbar-toggle {

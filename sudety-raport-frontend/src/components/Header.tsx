@@ -82,7 +82,6 @@ export default function Header(props: Readonly<{
   return (
     <React.Fragment>
       <CssBaseline />
-      <HideOnScroll>
         <AppBar className='navbar'>
           {/* <Toolbar> */}
             <Grid container>
@@ -113,18 +112,14 @@ export default function Header(props: Readonly<{
                       {/* <Typography variant='h6' component='div' onClick={showSidebar}>
                         {!sidebar ? "Menu" : "Close"}
                       </Typography> */}
-                      <MenuIcon />
+                      <MenuIcon onClick={showSidebar} />
                     </Link>
                   </div>
                 </div>
               </Grid>
-              <Grid item xs={12}>
-                <div className="borderBottom" />
-              </Grid>
             </Grid>
           {/* </Toolbar> */}
         </AppBar>
-      </HideOnScroll>
       <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
         <ul className='nav-menu-items'>
           {Categories[siteLang].map((item, index) => {

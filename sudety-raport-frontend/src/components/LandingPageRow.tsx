@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import LandingPageRowPost from './LandingPageRowPost';
 
 
 // api call - https://sudetyraport.com/wp-json/wp/v2/posts?slug=the-best-rap-songs-of-2023
 //    https://sudetyraport.com/wp-json/wp/v2/posts?page=2&per_page=11
 //    https://sudetyraport.com/wp-json/wp/v2/posts?categories=19
+// fetch both languages - this should be then easier to swith between them
+// in total there will be just 10 per page for each category in both languages
 
 
 export default function LandingPageRow(props: Readonly<{

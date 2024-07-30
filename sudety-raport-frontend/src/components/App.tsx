@@ -39,8 +39,8 @@ const App = () => {
             }) => {
               return (
                 <>
-                <Route key={item.path} path={item.path} element={<SectionPage category={item} />} />
-                <Route key={`${item.path}/:id`} path={`${item.path}/:postID`} element={<PostPage />} />
+                  <Route key={item.path} path={item.path} element={<SectionPage category={item} />} />
+                  <Route key={`${item.path}/:id`} path={`${item.path}/:postID`} element={<PostPage />} />
                 </>
               );
             })

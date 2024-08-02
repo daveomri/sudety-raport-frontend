@@ -20,10 +20,10 @@ export default function LandingPageRowPost(props: Readonly<{
     <div style={{ height: "2300px", width: "514px", margin: "16px" }} onClick={redirectToPost}>
       <Paper style={{ height: "100%", width: "514px" }}>
         <Typography variant='h6'>
-        {post.title.rendered}
+        {post.title}
         </Typography>
         
-        {parse(post.excerpt.rendered)}
+        {parse(post.excerpt)}
       </Paper>
     </div>
   );

@@ -5,6 +5,7 @@ export const LOAD_POSTS_PREVIEW = gql`
       posts(first: 5, where: { categoryName: $categorySlug}) {
         edges {
           node {
+            id
             title
             excerpt
             translations {

@@ -22,8 +22,9 @@ export default function LandingPageRow(props: Readonly<{
 
   useEffect(() => {
     console.log(data);
-
-    setPosts(data);
+    if (data?.posts) {
+      setPosts(data.posts.edges);
+    }
     
   // fetch(`https://sudetyraport.com/wp-json/wp/v2/posts?categories=${category.id}&per_page=5`)
   //   .then(res => res.json())
@@ -62,11 +63,11 @@ export default function LandingPageRow(props: Readonly<{
   return (
   <div>
     <h1>{category.title}</h1>
-    {/* <div style={{ width: "100%", overflow: "auto", display: "flex", height: "5em" }}>
-    {posts.map((post: {id: number}) => (
-      <LandingPageRowPost key={`post-${post.id}`} category={category} post={post}/>
+    <div style={{ width: "100%", overflow: "auto", display: "flex", height: "5em" }}>
+    {posts.map((post: {node: any}) => (
+      <LandingPageRowPost key={`post-${post.node.id}`} category={category} post={post.node}/>
     ))}
-    </div> */}
+    </div>
   </div>
   );
 }

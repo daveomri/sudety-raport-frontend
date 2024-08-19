@@ -21,7 +21,6 @@ export default function LandingPageRow(props: Readonly<{
   });
 
   useEffect(() => {
-    console.log(data);
     if (data?.posts) {
       setPosts(data.posts.edges);
     }

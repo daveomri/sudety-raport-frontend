@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import LandingPageRowPost from './LandingPageRowPost';
-import { useQuery, gql } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import { LOAD_POSTS_PREVIEW } from '../graphql/Queries';
 
 // api call - https://sudetyraport.com/wp-json/wp/v2/posts?slug=the-best-rap-songs-of-2023
@@ -64,7 +64,7 @@ export default function LandingPageRow(props: Readonly<{
     <h1>{category.title}</h1>
     <div style={{ width: "100%", overflow: "auto", display: "flex", height: "5em" }}>
     {posts.map((post: {node: any}) => (
-      <LandingPageRowPost key={`post-${post.node.id}`} category={category} post={post.node}/>
+      <LandingPageRowPost key={`${post.node.slug}`} category={category} post={post.node}/>
     ))}
     </div>
   </div>

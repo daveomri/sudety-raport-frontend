@@ -8,6 +8,7 @@ export const LOAD_POSTS_PREVIEW = gql`
             id
             title
             excerpt
+            slug
             translations {
               title
             }
@@ -30,6 +31,7 @@ export const LOAD_SECTION_POSTS = gql`
             id
             title
             excerpt
+            slug
             featuredImage {
               node {
                 sourceUrl
@@ -40,3 +42,52 @@ export const LOAD_SECTION_POSTS = gql`
       }
     }
 `;
+
+export const LOAD_POST_BY_SLUG = gql`
+query($postSlug: String!) {
+    post(id: $postSlug, idType: SLUG) {
+	  id
+    title
+    content
+    date
+    dateGmt
+    link
+    status
+    slug
+    uri
+    language {
+      locale
+      name
+      slug
+    }
+    translations {
+      id
+      slug
+    }
+    featuredImage {
+      node {
+        id
+        altText
+        link
+        mediaItemUrl
+        sourceUrl
+      }
+    }
+    author {
+      node {
+        id
+        email
+        description
+        firstName
+        lastName
+        locale
+        name
+        nickname
+        uri
+        url
+        slug
+        username
+      }
+    }
+	}
+}`;

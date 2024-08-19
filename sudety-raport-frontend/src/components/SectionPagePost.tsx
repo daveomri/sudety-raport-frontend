@@ -21,6 +21,7 @@ export default function SectionPagePost(props: Readonly<{
   return (
     <div style={{ height: "500px", width: "514px", margin: "16px" }} onClick={redirectToPost}>
       <Paper style={{ height: "100%", width: "514px" }}>
+        <h3>{post.node.slug}</h3>
         <h2>{post.node.title}</h2>
         {post.node.excerpt}
       </Paper>

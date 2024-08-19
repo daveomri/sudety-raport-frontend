@@ -16,6 +16,7 @@ interface Post {
     id: string;
     title: string;
     excerpt: string;
+    slug: string;
     featuredImage: {
       node: {
         sourceUrl: string;
@@ -81,8 +82,6 @@ export default function SectionPage(props: Readonly<{
     );
   }
 
-  console.log(`this is posts ${posts}`);
-
   if (posts === undefined || posts.length === 0) {
     return <div/>;
   }
@@ -91,7 +90,7 @@ export default function SectionPage(props: Readonly<{
     <div>
       {
         posts.map((post: Post) => (
-            <SectionPagePost category={category} post={post} key={`post-${post.node.id}`} />
+            <SectionPagePost category={category} post={post} key={`${post.node.slug}`} />
         ))
       }
       <div>

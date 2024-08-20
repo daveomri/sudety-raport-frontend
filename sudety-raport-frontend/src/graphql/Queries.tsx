@@ -44,7 +44,7 @@ export const LOAD_SECTION_POSTS = gql`
 `;
 
 export const LOAD_POST_BY_SLUG = gql`
-query($postSlug: String!) {
+query($postSlug: ID!) {
     post(id: $postSlug, idType: SLUG) {
 	  id
     title

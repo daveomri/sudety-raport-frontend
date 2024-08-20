@@ -10,7 +10,7 @@ import { LOAD_POST_BY_SLUG } from "../graphql/Queries";
 //      https://sudetyraport.com/wp-json/wp/v2/posts?categories=19
 
 interface Post {
-  id: number;
+  id: string;
   title: string;
   content: string;
   date: string;
@@ -62,8 +62,8 @@ export default function PostPage() {
 
   // const [error, setError] = useState<{message: string} | null>(null);
   // const [isLoaded, setIsLoaded] = useState(false);
-  const [post, setPost] = useState<any>([]);
-  const { error, loading, data } = useQuery<Post>(LOAD_POST_BY_SLUG, {
+  const [post, setPost] = useState<Post | undefined>(undefined);
+  const { error, loading, data } = useQuery<{post: Post}>(LOAD_POST_BY_SLUG, {
     variables: {
       postSlug: postID
     },
@@ -73,7 +73,8 @@ export default function PostPage() {
     // load the post data
 
     // redirect if the site lang has changed
-  }, [siteLang, data]);
+    setPost(data?.post);
+  }, [data, siteLang]);
 
   if (error) {
     return (
@@ -91,12 +92,22 @@ export default function PostPage() {
     );
   }
 
+  if (post === undefined) {
+    return (
+      <div>
+        <p>{"Post couldn't be rendered :("}</p>
+      </div>
+    );
+  }
+
+  console.log(post);
+
   return (
     <div>
       {
-      //  parse(post?.content?.rendered)
+       parse(post?.content ?? '')
        // we can do either lazy loading or paging
-       parse(post?.content?.rendered.split('<!--nextpage-->')[0])
+      //  parse(post?.content?.rendered.split('<!--nextpage-->')[0])
       }
     </div>
   );

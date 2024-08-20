@@ -13,7 +13,7 @@ export default function LandingPageRowPost(props: Readonly<{
 
   const redirectToPost = () => {
     window.scrollTo({top: 0, left: 0, behavior: 'smooth'})
-    navigate(`${category.path}/${post.id}`);
+    navigate(`${category.path}/${post.slug}`);
   };
 
   return (

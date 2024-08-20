@@ -1,5 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { 
+  useNavigate,
+  useParams
+} from 'react-router-dom';
 import parse from 'html-react-parser';
 import { useQuery } from '@apollo/client';
 
@@ -27,7 +30,7 @@ interface Post {
   translations: {
     id: string;
     slug: string;
-  };
+  }[];
   featuredImage: {
     node: {
       id: string;
@@ -56,59 +59,61 @@ interface Post {
 }
 
 
-export default function PostPage() {
-  const { postID } = useParams();
-  const siteLang = navigator.language;
+export default function PostPage(props: Readonly<{
+  siteLang: string;
+  category: string;
+  }>) {
 
-  // const [error, setError] = useState<{message: string} | null>(null);
-  // const [isLoaded, setIsLoaded] = useState(false);
-  const [post, setPost] = useState<Post | undefined>(undefined);
-  const { error, loading, data } = useQuery<{post: Post}>(LOAD_POST_BY_SLUG, {
-    variables: {
-      postSlug: postID
-    },
-  });
+    const { siteLang, category } = props;
+    const { postID } = useParams();
+    const navigate = useNavigate();
 
-  useEffect(() => {
-    // load the post data
+    const [post, setPost] = useState<Post | undefined>(undefined);
+    const { error, loading, data } = useQuery<{post: Post}>(LOAD_POST_BY_SLUG, {
+      variables: {
+        postSlug: postID
+      },
+    });
 
-    // redirect if the site lang has changed
-    setPost(data?.post);
-  }, [data, siteLang]);
+    const redirectToPost = (path: string) => {
+      window.scrollTo({top: 0, left: 0, behavior: 'smooth'})
+      navigate(path, { replace: true });
+    };
 
-  if (error) {
-    return (
-      <div>
-      Error: {error?.message}
-      </div>
-    );
-    }
-  
-  if (loading) {
-    return (
-      <div>
-      Loading...
-      </div>
-    );
-  }
-
-  if (post === undefined) {
-    return (
-      <div>
-        <p>{"Post couldn't be rendered :("}</p>
-      </div>
-    );
-  }
-
-  console.log(post);
-
-  return (
-    <div>
-      {
-       parse(post?.content ?? '')
-       // we can do either lazy loading or paging
-      //  parse(post?.content?.rendered.split('<!--nextpage-->')[0])
+    useEffect(() => {
+      // load the post data
+      console.log(`post: ${data?.post.language.slug} page ${siteLang} cath ${category}`);
+      if (data && data.post.language.slug !== siteLang) {
+        redirectToPost(`/${category}/${data?.post.translations.at(0)?.slug}`);
       }
-    </div>
-  );
+      console.log(data?.post);
+      // redirect if the site lang has changed
+      setPost(data?.post);
+    }, [data, siteLang, category]);
+
+    if (error) {
+      return (
+        <div>
+        Error: {error?.message}
+        </div>
+      );
+      }
+    
+    if (loading) {
+      return (
+        <div>
+        Loading...
+        </div>
+      );
+    }
+
+    return (
+      <div>
+        {
+        // parse(post?.content ?? '')
+        // we can do either lazy loading or paging
+         parse(post?.content.split('<!--nextpage-->')[0] ?? '')
+        }
+      </div>
+    );
 }

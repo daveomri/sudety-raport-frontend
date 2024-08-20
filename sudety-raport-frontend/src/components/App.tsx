@@ -61,12 +61,13 @@ const App = () => {
             <Route path='/' element={<LandingPage siteLang={siteLang} />} />
             {['cs', 'en'].map((lang: string) => {
               return Categories[lang].map((item: {
-                path: string
+                path: string;
+                slug: string
               }) => {
                 return (
                   <>
                   <Route key={item.path} path={item.path} element={<SectionPage category={item} />} />
-                  <Route key={`${item.path}/:id`} path={`${item.path}/:postID`} element={<PostPage />} />
+                  <Route key={`${item.path}/:id`} path={`${item.path}/:postID`} element={<PostPage siteLang={lang} category={item.slug} />} />
                   </>
                 );
               })

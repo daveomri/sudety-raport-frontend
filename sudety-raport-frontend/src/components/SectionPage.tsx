@@ -27,6 +27,12 @@ interface Post {
 interface Posts {
   posts: {
     edges: Post[];
+    pageInfo: {
+      endCursor: string;
+      hasNextPage: string;
+      hasPreviousPage: string;
+      startCursor: string;
+    }
   }
 }
 
@@ -46,11 +52,11 @@ export default function SectionPage(props: Readonly<{
   });
 
   const loadMorePosts = () => {
-    if (posts !== undefined && posts.length !== 0) {
+    if (posts !== undefined && posts.length > 0) {
       refetch({
         categorySlug: category.slug,
         numberOfPosts: 5,
-        lastPoint: posts.at(-1)?.node.id
+        lastPoint: data?.posts?.pageInfo.endCursor ?? null
       });
     }
   };  
@@ -94,7 +100,7 @@ export default function SectionPage(props: Readonly<{
         ))
       }
       <div>
-        <Button onClick={loadMorePosts}>{"Load more"}</Button>
+        <Button disabled={!(data?.posts?.pageInfo.hasNextPage ?? false)} onClick={loadMorePosts}>{"Load more"}</Button>
       </div>
     </div>
   );

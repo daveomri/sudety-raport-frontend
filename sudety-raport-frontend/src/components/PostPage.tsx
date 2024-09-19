@@ -8,10 +8,6 @@ import { useQuery } from '@apollo/client';
 
 import { LOAD_POST_BY_SLUG } from "../graphql/Queries";
 
-// api call - https://sudetyraport.com/wp-json/wp/v2/posts?slug=the-best-rap-songs-of-2023
-//      https://sudetyraport.com/wp-json/wp/v2/posts?page=2&per_page=11
-//      https://sudetyraport.com/wp-json/wp/v2/posts?categories=19
-
 interface Post {
   id: string;
   title: string;
@@ -75,21 +71,23 @@ export default function PostPage(props: Readonly<{
       },
     });
 
-    const redirectToPost = (path: string) => {
-      window.scrollTo({top: 0, left: 0, behavior: 'smooth'})
-      navigate(path, { replace: true });
-    };
 
     useEffect(() => {
+      const redirectToPost = (path: string) => {
+        window.scrollTo({top: 0, left: 0, behavior: 'smooth'})
+        navigate(path, { replace: true });
+      };
       // load the post data
-      console.log(`post: ${data?.post.language.slug} page ${siteLang} cath ${category}`);
-      if (data && data.post.language.slug !== siteLang) {
-        redirectToPost(`/${category}/${data?.post.translations.at(0)?.slug}`);
+      if (data && data.post?.language.slug !== siteLang) {
+        if (data.post.translations.length !== 0) {
+          redirectToPost(`/${category}/${data.post.translations.at(0)?.slug}`);
+        } else {
+          redirectToPost(`/${category}`);
+        }
       }
-      console.log(data?.post);
       // redirect if the site lang has changed
       setPost(data?.post);
-    }, [data, siteLang, category]);
+    }, [data, siteLang, category, navigate]);
 
     if (error) {
       return (

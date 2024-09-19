@@ -72,7 +72,7 @@ export default function Header(props: Readonly<{
       window.scrollTo({top: 0, left: 0, behavior: 'smooth'})
       changeLang(event, newLang);
       // Change the route
-      navigate(routeTranslate(location.pathname));
+      navigate(routeTranslate(location.pathname), { replace: true});
     }
   };
 

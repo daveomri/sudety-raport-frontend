@@ -1,11 +1,16 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Button } from '@mui/material';
+import { 
+  useNavigate
+} from 'react-router-dom';
 
 import SectionPagePost from './SectionPagePost';
 import { useQuery } from '@apollo/client';
 import { LOAD_SECTION_POSTS } from '../graphql/Queries';
-// import { CategoryTranslate, LangTranslate } from './Categories';
-// import { useNavigate } from 'react-router-dom';
+
+import { CategoryTranslate, LangTranslate } from './Categories'
+
+import { LangContext } from './App';
 
 // api call - https://sudetyraport.com/wp-json/wp/v2/posts?slug=the-best-rap-songs-of-2023
 //      https://sudetyraport.com/wp-json/wp/v2/posts?page=2&per_page=11
@@ -40,6 +45,8 @@ export default function SectionPage(props: Readonly<{
   category: any;
 }>) {
   const { category } = props;
+  const { siteLang } = useContext(LangContext);
+  const navigate = useNavigate();
   const [posts, setPosts] = useState<Post[]>([]);
 
   const { error, refetch, loading, data } = useQuery<Posts>(LOAD_SECTION_POSTS, {
@@ -59,18 +66,23 @@ export default function SectionPage(props: Readonly<{
         lastPoint: data?.posts?.pageInfo.endCursor ?? null
       });
     }
-  };  
-
-  // const handlePageChange = (_: React.ChangeEvent<unknown>, page: number) => {
-  //   window.scrollTo({top: 0, left: 0, behavior: 'smooth'})
-  //   setPage(page);
-  // };
+  };
 
   useEffect(() => {
+    const redirectToPost = (path: string) => {
+      window.scrollTo({top: 0, left: 0, behavior: 'smooth'})
+      navigate(path, { replace: true });
+    };
+
+    if (CategoryTranslate[siteLang][category.slug] === undefined) {
+      // Change the site
+      redirectToPost(`/${CategoryTranslate[LangTranslate[siteLang]][category.slug]}`)
+    }
+
     if (data?.posts) {
       setPosts(data.posts.edges);
     }
-  }, [data]);
+  }, [siteLang, category, data, navigate]);
 
   if (error) {
     return (

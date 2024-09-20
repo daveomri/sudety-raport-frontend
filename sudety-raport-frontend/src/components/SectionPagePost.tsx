@@ -13,7 +13,6 @@ export default function SectionPagePost(props: Readonly<{
   } = props;
   const navigate = useNavigate();
 
-  console.info();
   const redirectToPost = () => {
     window.scrollTo({top: 0, left: 0, behavior: 'smooth'})
     navigate(`${category.path}/${post.node.slug}`);

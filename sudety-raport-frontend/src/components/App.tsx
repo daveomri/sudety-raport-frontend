@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, createContext, useMemo } from 'react';
 import { Container } from '@mui/material';
 import {
   ApolloClient,
@@ -45,38 +45,47 @@ const client = new ApolloClient({
   link: link
 });
 
+export const LangContext = createContext<{
+  siteLang: string;
+  setSiteLang: React.Dispatch<React.SetStateAction<string>>;
+}>({
+  siteLang: 'en', // Default value for language
+  setSiteLang: () => {}, // No-op function as a placeholder
+});
+
 const App = () => {
   const [siteLang, setSiteLang] = useState(navigator.language === 'cs' ? 'cs' : 'en');
-  
-  const changeLang = (
-    event: React.MouseEvent<HTMLElement>,
-    newLang: string) => setSiteLang(newLang ?? siteLang);
+
+
+  const langValue = useMemo(() => ({ siteLang, setSiteLang }), [siteLang]);
 
   return (
     <ApolloProvider client={client}>
-      <Container className='app-container'>
-        <Router>
-          <Header siteLang={siteLang} changeLang={changeLang} />
-          <Routes>
-            <Route path='/' element={<LandingPage siteLang={siteLang} />} />
-            {['cs', 'en'].map((lang: string) => {
-              return Categories[lang].map((item: {
-                path: string;
-                slug: string
-              }) => {
-                return (
-                  <>
-                  <Route key={item.path} path={item.path} element={<SectionPage category={item} />} />
-                  <Route key={`${item.path}/:id`} path={`${item.path}/:postID`} element={<PostPage siteLang={lang} category={item.slug} />} />
-                  </>
-                );
-              })
-            })}
-            <Route path='*' element={<LandingPage siteLang={siteLang} />} />
-          </Routes>
-        </Router>
-      </Container>
-      <Footer />
+      <LangContext.Provider value={langValue}>
+        <Container className='app-container'>
+          <Router>
+            <Header />
+            <Routes>
+              <Route path='/' element={<LandingPage />} />
+              {['cs', 'en'].map((lang: string) => {
+                return Categories[lang].map((item: {
+                  path: string;
+                  slug: string
+                }) => {
+                  return (
+                    <>
+                    <Route key={item.path} path={item.path} element={<SectionPage category={item} />} />
+                    <Route key={`${item.path}/:id`} path={`${item.path}/:postID`} element={<PostPage category={item.slug} />} />
+                    </>
+                  );
+                })
+              })}
+              <Route path='*' element={<LandingPage />} />
+            </Routes>
+          </Router>
+        </Container>
+        <Footer />
+      </LangContext.Provider>
     </ApolloProvider>
   );
 }

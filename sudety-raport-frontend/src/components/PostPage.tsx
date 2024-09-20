@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { 
   useNavigate,
   useParams
@@ -7,6 +7,8 @@ import parse from 'html-react-parser';
 import { useQuery } from '@apollo/client';
 
 import { LOAD_POST_BY_SLUG } from "../graphql/Queries";
+
+import { LangContext } from './App';
 
 interface Post {
   id: string;
@@ -56,11 +58,11 @@ interface Post {
 
 
 export default function PostPage(props: Readonly<{
-  siteLang: string;
   category: string;
   }>) {
 
-    const { siteLang, category } = props;
+    const { category } = props;
+    const { siteLang } = useContext(LangContext);
     const { postID } = useParams();
     const navigate = useNavigate();
 

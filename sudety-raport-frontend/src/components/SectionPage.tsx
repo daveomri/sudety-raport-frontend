@@ -1,50 +1,88 @@
-import React, { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { Button } from '@mui/material';
+import { 
+  useNavigate
+} from 'react-router-dom';
+
 import SectionPagePost from './SectionPagePost';
-// import { CategoryTranslate, LangTranslate } from './Categories';
-// import { useNavigate } from 'react-router-dom';
-import { Pagination } from '@mui/material';
+import { useQuery } from '@apollo/client';
+import { LOAD_SECTION_POSTS } from '../graphql/Queries';
+
+import { CategoryTranslate, LangTranslate } from './Categories'
+
+import { LangContext } from './App';
 
 // api call - https://sudetyraport.com/wp-json/wp/v2/posts?slug=the-best-rap-songs-of-2023
 //      https://sudetyraport.com/wp-json/wp/v2/posts?page=2&per_page=11
 //      https://sudetyraport.com/wp-json/wp/v2/posts?categories=19
 
-
+interface Post {
+  node: {
+    id: string;
+    title: string;
+    excerpt: string;
+    slug: string;
+    featuredImage: {
+      node: {
+        sourceUrl: string;
+      }
+    }
+  }
+}
+interface Posts {
+  posts: {
+    edges: Post[];
+    pageInfo: {
+      endCursor: string;
+      hasNextPage: string;
+      hasPreviousPage: string;
+      startCursor: string;
+    }
+  }
+}
 
 export default function SectionPage(props: Readonly<{
   category: any;
 }>) {
   const { category } = props;
-  const [error, setError] = useState<{message: string} | null>(null);
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [posts, setPosts] = useState<any>([]);
-  const [page, setPage] = useState<number>(1);
-  const [totalPages, setTotalPages] = useState<number>(0);
+  const { siteLang } = useContext(LangContext);
+  const navigate = useNavigate();
+  const [posts, setPosts] = useState<Post[]>([]);
 
-  const handlePageChange = (_: React.ChangeEvent<unknown>, page: number) => {
-    window.scrollTo({top: 0, left: 0, behavior: 'smooth'})
-    setPage(page);
+  const { error, refetch, loading, data } = useQuery<Posts>(LOAD_SECTION_POSTS, {
+    variables: {
+      categorySlug: category.slug,
+      numberOfPosts: 5,
+      lastPoint: null
+
+    }
+  });
+
+  const loadMorePosts = () => {
+    if (posts !== undefined && posts.length > 0) {
+      refetch({
+        categorySlug: category.slug,
+        numberOfPosts: 5,
+        lastPoint: data?.posts?.pageInfo.endCursor ?? null
+      });
+    }
   };
 
   useEffect(() => {
-    setIsLoaded(false);
-    fetch(`https://sudetyraport.com/wp-json/wp/v2/posts?categories=${category.id}&per_page=5&page=${page}`)
-      .then(res => {
-        
-        setTotalPages(Number(res.headers.get('x-wp-totalpages')));
-        
-        return res.json();
-      })
-      .then(
-        (result) => {
-          setIsLoaded(true);
-          setPosts(result);
-        },
-        (error) => {
-          setIsLoaded(true);
-          setError(error);
-        }
-      )
-  }, [category, page]);
+    const redirectToPost = (path: string) => {
+      window.scrollTo({top: 0, left: 0, behavior: 'smooth'})
+      navigate(path, { replace: true });
+    };
+
+    if (CategoryTranslate[siteLang][category.slug] === undefined) {
+      // Change the site
+      redirectToPost(`/${CategoryTranslate[LangTranslate[siteLang]][category.slug]}`)
+    }
+
+    if (data?.posts) {
+      setPosts(data.posts.edges);
+    }
+  }, [siteLang, category, data, navigate]);
 
   if (error) {
     return (
@@ -54,7 +92,7 @@ export default function SectionPage(props: Readonly<{
     );
     }
   
-  if (!isLoaded) {
+  if (loading && !data) {
     return (
       <div>
       Loading...
@@ -63,23 +101,19 @@ export default function SectionPage(props: Readonly<{
   }
 
   if (posts === undefined || posts.length === 0) {
-    return <div></div>;
+    return <div/>;
   }
 
   return (
     <div>
       {
-        posts.map((post: {
-          id: number
-        }) => (
-            <SectionPagePost category={category} post={post} key={`post-${post.id}`} />
+        posts.map((post: Post) => (
+            <SectionPagePost category={category} post={post} key={`${post.node.slug}`} />
         ))
       }
-      <div><Pagination 
-      count={totalPages} 
-      page={page} 
-      onChange={handlePageChange}
-      color="primary" /></div>
+      <div>
+        <Button disabled={!(data?.posts?.pageInfo.hasNextPage ?? false)} onClick={loadMorePosts}>{"Load more"}</Button>
+      </div>
     </div>
   );
 }

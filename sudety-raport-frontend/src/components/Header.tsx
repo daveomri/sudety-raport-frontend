@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { 
   AppBar, 
   Slide, 
@@ -13,6 +13,7 @@ import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Categories, CategoryTranslate } from './Categories';
+import { LangContext } from './App';
 
 import logo from '../img/fialovozluty-smaller.png';
 
@@ -34,19 +35,16 @@ function HideOnScroll(props: Readonly<{
   );
 }
 
-export default function Header(props: Readonly<{
-    siteLang: string;
-    changeLang: (
-      event: React.MouseEvent<HTMLElement>, newLang: string) => void;
-  }>) {
+export default function Header() {
   const location = useLocation();
   const navigate = useNavigate();
 
   const [sidebar, setSidebar] = useState(false);
-  const {
-    siteLang,
-    changeLang
-  } = props;
+  const { siteLang, setSiteLang } = useContext(LangContext);
+  
+  const changeLang = (
+    event: React.MouseEvent<HTMLElement>,
+    newLang: string) => setSiteLang(newLang ?? siteLang);
   
   const showSidebar = () => setSidebar(!sidebar);
 
@@ -75,7 +73,7 @@ export default function Header(props: Readonly<{
       window.scrollTo({top: 0, left: 0, behavior: 'smooth'})
       changeLang(event, newLang);
       // Change the route
-      navigate(routeTranslate(location.pathname));
+      navigate(routeTranslate(location.pathname), { replace: true});
     }
   };
 

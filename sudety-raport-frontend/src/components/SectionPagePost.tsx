@@ -1,4 +1,5 @@
 import { Paper } from '@mui/material';
+import parse from 'html-react-parser';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -14,16 +15,16 @@ export default function SectionPagePost(props: Readonly<{
 
   const redirectToPost = () => {
     window.scrollTo({top: 0, left: 0, behavior: 'smooth'})
-    navigate(`${category.path}/${post.id}`);
-    // navigate(`${category.path}/${post.id}`, {state: {page: 0, pPage: 10}});
-    // also i should store the posts per session, to minimize communication with server
+    navigate(`${category.path}/${post.node.slug}`);
   };
 
   return (
-    <div
-      style={{ height: "2300px", width: "514px", margin: "16px" }} 
-      onClick={redirectToPost}>
-        <Paper style={{ height: "100%", width: "514px" }}>{post.title.rendered}</Paper>
+    <div style={{ height: "500px", width: "514px", margin: "16px" }} onClick={redirectToPost}>
+      <Paper style={{ height: "100%", width: "514px" }}>
+        <h3>{post.node.slug}</h3>
+        <h2>{post.node.title}</h2>
+        {parse(post.node.excerpt)}
+      </Paper>
     </div>
   );
 };

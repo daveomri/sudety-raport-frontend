@@ -4,6 +4,7 @@ export const Categories: {
   [key: string]: Array<{
     title: string,
     path: string,
+    slug: string,
     icon: JSX.Element,
     cName: string,
     id: number
@@ -13,6 +14,7 @@ export const Categories: {
     {
       title: 'Best of',
       path: '/best_of',
+      slug: 'best_of',
       icon: <FaIcons.FaAngrycreative />,
       cName: 'nav-text',
       id: 27,
@@ -20,6 +22,7 @@ export const Categories: {
     {
       title: 'Playlists',
       path: '/playlists',
+      slug: 'playlists',
       icon: <FaIcons.FaAd />,
       cName: 'nav-text',
       id: 23,
@@ -27,6 +30,7 @@ export const Categories: {
     {
       title: 'Rap Tales',
       path: '/rap-tales',
+      slug: 'rap-tales',
       icon: <FaIcons.FaAngrycreative />,
       cName: 'nav-text',
       id: 17,
@@ -34,6 +38,7 @@ export const Categories: {
     {
       title: 'Rap Weekly',
       path: '/rap_weekly',
+      slug: 'rap_weekly',
       icon: <FaIcons.FaAdversal />,
       cName: 'nav-text',
       id: 19,
@@ -41,6 +46,7 @@ export const Categories: {
     {
       title: 'Uncategorized',
       path: '/uncategorized',
+      slug: 'uncategorized',
       icon: <FaIcons.FaAccessibleIcon />,
       cName: 'nav-text',
       id: 25,
@@ -50,6 +56,7 @@ export const Categories: {
     {
       title: 'Žebříčky',
       path: '/zebricky',
+      slug: 'zebricky',
       icon: <FaIcons.FaAngrycreative />,
       cName: 'nav-text',
       id: 4,
@@ -57,6 +64,7 @@ export const Categories: {
     {
       title: 'Playlisty',
       path: '/playlisty',
+      slug: 'playlisty',
       icon: <FaIcons.FaAd />,
       cName: 'nav-text',
       id: 5,
@@ -64,6 +72,7 @@ export const Categories: {
     {
       title: 'Rapové příběhy',
       path: '/rapove-pribehy',
+      slug: 'rapove-pribehy',
       icon: <FaIcons.FaAngrycreative />,
       cName: 'nav-text',
       id: 3,
@@ -71,6 +80,7 @@ export const Categories: {
     {
       title: 'Rapový týdeník',
       path: '/rapovy_tydenik',
+      slug: 'rapovy_tydenik',
       icon: <FaIcons.FaAdversal />,
       cName: 'nav-text',
       id: 2,
@@ -78,6 +88,7 @@ export const Categories: {
     {
       title: 'Nezařazeno',
       path: '/nezarazeno',
+      slug: 'nezarazeno',
       icon: <FaIcons.FaAccessibleIcon />,
       cName: 'nav-text',
       id: 1,

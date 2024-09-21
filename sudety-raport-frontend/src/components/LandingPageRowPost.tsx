@@ -12,19 +12,17 @@ export default function LandingPageRowPost(props: Readonly<{
 
   const redirectToPost = () => {
     window.scrollTo({top: 0, left: 0, behavior: 'smooth'})
-    navigate(`${category.path}/${post.id}`);
+    navigate(`${category.path}/${post.slug}`);
   };
 
   return (
-    <div 
-        style={{ height: "2300px", width: "514px", margin: "16px" }} 
-        onClick={redirectToPost}>
+    <div style={{ height: "500px", width: "514px", margin: "16px" }} onClick={redirectToPost}>
       <Paper style={{ height: "100%", width: "514px" }}>
         <Typography variant='h6'>
-        {post.title.rendered}
+        {post.title}
         </Typography>
         
-        {parse(post.excerpt.rendered)}
+        {parse(post.excerpt)}
       </Paper>
     </div>
   );

@@ -9,7 +9,7 @@ import { Facebook, Instagram, Twitter } from "@mui/icons-material";
 import { Box } from "@mui/material";
 import '../styles/Footer.css';
 
-export default function Footer() {
+export function Footer() {
   return (
     <Box
       component="footer"

@@ -1,6 +1,6 @@
-import React, { useState } from "react"
+import { useState } from "react"
 
-function ExampleReactComponent() {
+export function ExampleReactComponent() {
   const [clickCount, setClickCount] = useState(0)
 
   return (
@@ -12,5 +12,3 @@ function ExampleReactComponent() {
     </div>
   )
 }
-
-export default ExampleReactComponent

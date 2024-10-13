@@ -4,7 +4,6 @@ import {
   Slide, 
   useScrollTrigger,
   CssBaseline,
-  Typography,
   Grid
 } from '@mui/material';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
@@ -19,6 +18,7 @@ import logo from '../img/fialovozluty-smaller.png';
 
 import '../styles/Header.css';
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function HideOnScroll(props: Readonly<{
     window?: () => Window;
     children: React.ReactElement;
@@ -35,7 +35,7 @@ function HideOnScroll(props: Readonly<{
   );
 }
 
-export default function Header() {
+export function Header() {
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -78,7 +78,7 @@ export default function Header() {
   };
 
   return (
-    <React.Fragment>
+    <>
       <CssBaseline />
         <AppBar className='navbar'>
           {/* <Toolbar> */}
@@ -132,6 +132,6 @@ export default function Header() {
           })}
         </ul>
       </nav>
-    </React.Fragment>
+    </>
   );
 }

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import LandingPageRowPost from './LandingPageRowPost';
+import { LandingPageRowPost } from './LandingPageRowPost';
 import { useQuery } from '@apollo/client';
-import { LOAD_POSTS_PREVIEW } from '../graphql/Queries';
+import { LOAD_POSTS_PREVIEW } from '../../graphql/Queries';
 
 // api call - https://sudetyraport.com/wp-json/wp/v2/posts?slug=the-best-rap-songs-of-2023
 //    https://sudetyraport.com/wp-json/wp/v2/posts?page=2&per_page=11
@@ -10,7 +10,7 @@ import { LOAD_POSTS_PREVIEW } from '../graphql/Queries';
 // in total there will be just 10 per page for each category in both languages
 
 
-export default function LandingPageRow(props: Readonly<{
+export function LandingPageRow(props: Readonly<{
   category: any;
 }>) {
   const { category } = props;
@@ -43,19 +43,19 @@ export default function LandingPageRow(props: Readonly<{
   }, [data]);
 
   if (error) {
-  return (
-    <div>
-    Error: {error?.message}
-    </div>
-  );
+    return (
+      <div>
+      Error: {error?.message}
+      </div>
+    );
   }
 
   if (loading) {
-  return (
-    <div>
-    Loading...
-    </div>
-  );
+    return (
+      <div>
+      Loading...
+      </div>
+    );
   }
   else if (posts === undefined || posts.length === 0) {
     return <div></div>;

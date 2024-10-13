@@ -6,9 +6,9 @@ import {
 import parse from 'html-react-parser';
 import { useQuery } from '@apollo/client';
 
-import { LOAD_POST_BY_SLUG } from "../graphql/Queries";
+import { LOAD_POST_BY_SLUG } from "../../graphql/Queries";
 
-import { LangContext } from './App';
+import { LangContext } from '../App';
 
 interface Post {
   id: string;
@@ -57,7 +57,7 @@ interface Post {
 }
 
 
-export default function PostPage(props: Readonly<{
+export function PostPage(props: Readonly<{
   category: string;
   }>) {
 

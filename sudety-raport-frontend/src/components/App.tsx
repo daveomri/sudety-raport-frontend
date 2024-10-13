@@ -10,8 +10,8 @@ import {
 
  import { onError } from '@apollo/client/link/error';
 
-import Header from './Header';
-import Footer from './Footer';
+import { Header } from './Header';
+import { Footer } from './Footer';
 import { 
   BrowserRouter as  Router, 
   Routes, 
@@ -19,17 +19,13 @@ import {
 } from 'react-router-dom';
 
 import { Categories } from './Categories';
-import LandingPage from './LandingPage';
-import SectionPage from './SectionPage';
-import PostPage from './PostPage';
-
-// api call - https://sudetyraport.com/wp-json/wp/v2/posts?slug=the-best-rap-songs-of-2023
-//      https://sudetyraport.com/wp-json/wp/v2/posts?page=2&per_page=11
-//      https://sudetyraport.com/wp-json/wp/v2/posts?categories=19
+import { LandingPage } from './LandingPage/LandingPage';
+import { SectionPage } from './SectionPage/SectionPage';
+import { PostPage } from './PostPage/PostPage';
 
 const errorLink = onError(({ graphQLErrors, networkError }) => {
   if (graphQLErrors) {
-    graphQLErrors.map(({ message, locations, path }) => {
+    graphQLErrors.forEach(({ message, locations, path }) => {
       alert(`Graphql error ${message} ${locations} ${path}`);
     });
   }
@@ -53,11 +49,28 @@ export const LangContext = createContext<{
   setSiteLang: () => {}, // No-op function as a placeholder
 });
 
-const App = () => {
+const generateRoutes = () => {
+  return ['cs', 'en'].map((lang: string) => {
+    return Categories[lang].map((item: {
+      path: string;
+      slug: string
+    }) => {
+      return (
+        <>
+        <Route key={item.path} path={item.path} element={<SectionPage category={item} />} />
+        <Route key={`${item.path}/:id`} path={`${item.path}/:postID`} element={<PostPage category={item.slug} />} />
+        </>
+      );
+    })
+  })
+};
+
+export const App = () => {
   const [siteLang, setSiteLang] = useState(navigator.language === 'cs' ? 'cs' : 'en');
 
 
   const langValue = useMemo(() => ({ siteLang, setSiteLang }), [siteLang]);
+  const routes = useMemo(() => generateRoutes(), []);
 
   return (
     <ApolloProvider client={client}>
@@ -67,19 +80,7 @@ const App = () => {
             <Header />
             <Routes>
               <Route path='/' element={<LandingPage />} />
-              {['cs', 'en'].map((lang: string) => {
-                return Categories[lang].map((item: {
-                  path: string;
-                  slug: string
-                }) => {
-                  return (
-                    <>
-                    <Route key={item.path} path={item.path} element={<SectionPage category={item} />} />
-                    <Route key={`${item.path}/:id`} path={`${item.path}/:postID`} element={<PostPage category={item.slug} />} />
-                    </>
-                  );
-                })
-              })}
+                {routes}
               <Route path='*' element={<LandingPage />} />
             </Routes>
           </Router>
@@ -89,5 +90,3 @@ const App = () => {
     </ApolloProvider>
   );
 }
-
-export default App;

@@ -12,10 +12,6 @@ import { CategoryTranslate, LangTranslate } from '../Categories'
 
 import { LangContext } from '../App';
 
-// api call - https://sudetyraport.com/wp-json/wp/v2/posts?slug=the-best-rap-songs-of-2023
-//      https://sudetyraport.com/wp-json/wp/v2/posts?page=2&per_page=11
-//      https://sudetyraport.com/wp-json/wp/v2/posts?categories=19
-
 interface Post {
   node: {
     id: string;

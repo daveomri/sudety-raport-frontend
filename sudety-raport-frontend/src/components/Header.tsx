@@ -80,44 +80,44 @@ export function Header() {
   return (
     <>
       <CssBaseline />
-        <AppBar className='navbar'>
-          {/* <Toolbar> */}
-            <Grid container>
-              <Grid item xs={6} sm={8} md={10} className='site-logo-grid'>
-                <Link to='/'>
-                    <img src={logo} alt="Sudety Raport" />
-                </Link>
-              </Grid>
-              <Grid item xs={6} sm={4} md={2}>
-                <div className='site-right-side'>
-                  <div className='site-lang-switch'>
-                    <ToggleButtonGroup
-                      value={siteLang}
-                      exclusive
-                      onChange={changeLangHelper}
-                      aria-label='language'
-                    >
-                      <ToggleButton value='cs' aria-label='cs'>
-                        {'cze'}
-                      </ToggleButton>
-                      <ToggleButton value='en' aria-label='en'>
-                        {'eng'}
-                      </ToggleButton>
-                    </ToggleButtonGroup>
-                  </div>
-                  <div className='site-nav-grid'>
-                    <Link to="#" className='menu-bars'>
-                      {/* <Typography variant='h6' component='div' onClick={showSidebar}>
-                        {!sidebar ? "Menu" : "Close"}
-                      </Typography> */}
-                      <MenuIcon onClick={showSidebar} />
-                    </Link>
-                  </div>
-                </div>
-              </Grid>
+      <AppBar className='navbar'>
+        {/* <Toolbar> */}
+          <Grid container>
+            <Grid item xs={6} sm={8} md={10} className='site-logo-grid'>
+              <Link to='/'>
+                  <img src={logo} alt="Sudety Raport" />
+              </Link>
             </Grid>
-          {/* </Toolbar> */}
-        </AppBar>
+            <Grid item xs={6} sm={4} md={2}>
+              <div className='site-right-side'>
+                <div className='site-lang-switch'>
+                  <ToggleButtonGroup
+                    value={siteLang}
+                    exclusive
+                    onChange={changeLangHelper}
+                    aria-label='language'
+                  >
+                    <ToggleButton value='cs' aria-label='cs'>
+                      {'cze'}
+                    </ToggleButton>
+                    <ToggleButton value='en' aria-label='en'>
+                      {'eng'}
+                    </ToggleButton>
+                  </ToggleButtonGroup>
+                </div>
+                <div className='site-nav-grid'>
+                  <Link to="#" className='menu-bars'>
+                    {/* <Typography variant='h6' component='div' onClick={showSidebar}>
+                      {!sidebar ? "Menu" : "Close"}
+                    </Typography> */}
+                    <MenuIcon onClick={showSidebar} />
+                  </Link>
+                </div>
+              </div>
+            </Grid>
+          </Grid>
+        {/* </Toolbar> */}
+      </AppBar>
       <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
         <ul className='nav-menu-items'>
           {Categories[siteLang].map((item, index) => {

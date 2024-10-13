@@ -50,19 +50,19 @@ export const LangContext = createContext<{
 });
 
 const generateRoutes = () => {
-  return ['cs', 'en'].map((lang: string) => {
-    return Categories[lang].map((item: {
+  const routes: React.ReactElement[] = [];
+
+  ['cs', 'en'].forEach((lang: string) => {
+    Categories[lang].forEach((item: {
       path: string;
       slug: string
     }) => {
-      return (
-        <>
-        <Route key={item.path} path={item.path} element={<SectionPage category={item} />} />
-        <Route key={`${item.path}/:id`} path={`${item.path}/:postID`} element={<PostPage category={item.slug} />} />
-        </>
-      );
+      routes.push(<Route key={item.path} path={item.path} element={<SectionPage category={item} />} />);
+      routes.push(<Route key={`${item.path}/:id`} path={`${item.path}/:postID`} element={<PostPage category={item.slug} />} />);
     })
-  })
+  });
+
+  return routes;
 };
 
 export const App = () => {

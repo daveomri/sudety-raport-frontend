@@ -3,12 +3,7 @@ import { LandingPageRowPost } from './LandingPageRowPost';
 import { useQuery } from '@apollo/client';
 import { LOAD_POSTS_PREVIEW } from '../../graphql/Queries';
 
-// api call - https://sudetyraport.com/wp-json/wp/v2/posts?slug=the-best-rap-songs-of-2023
-//    https://sudetyraport.com/wp-json/wp/v2/posts?page=2&per_page=11
-//    https://sudetyraport.com/wp-json/wp/v2/posts?categories=19
-// fetch both languages - this should be then easier to swith between them
-// in total there will be just 10 per page for each category in both languages
-
+import './styles.css';
 
 export function LandingPageRow(props: Readonly<{
   category: any;
@@ -26,20 +21,6 @@ export function LandingPageRow(props: Readonly<{
     if (data?.posts) {
       setPosts(data.posts.edges);
     }
-    
-  // fetch(`https://sudetyraport.com/wp-json/wp/v2/posts?categories=${category.id}&per_page=5`)
-  //   .then(res => res.json())
-  //   .then(
-  //   (result) => {
-  //     setIsLoaded(true);
-  //     setPosts(result);
-  //   },
-  //   (error) => {
-  //     setIsLoaded(true);
-  //     setError(error);
-  //   }
-  //   )
-
   }, [data]);
 
   if (error) {
@@ -64,7 +45,7 @@ export function LandingPageRow(props: Readonly<{
   return (
   <div>
     <h1>{category.title}</h1>
-    <div style={{ width: "100%", overflow: "auto", display: "flex", height: "5em" }}>
+    <div className='landing_page_row'>
     {posts.map((post: {node: any}) => (
       <LandingPageRowPost key={`${post.node.slug}`} category={category} post={post.node}/>
     ))}

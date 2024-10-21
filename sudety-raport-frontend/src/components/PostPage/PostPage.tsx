@@ -8,7 +8,9 @@ import { useQuery } from '@apollo/client';
 
 import { LOAD_POST_BY_SLUG } from "../../graphql/Queries";
 
-import { LangContext } from '../App';
+import { LangContext } from '../App/App';
+
+import './styles.css';
 
 interface Post {
   id: string;

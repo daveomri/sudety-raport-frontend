@@ -4,7 +4,7 @@ import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import { Facebook, Instagram, Twitter } from "@mui/icons-material";
 import { Box } from "@mui/material";
-import '../styles/Footer.css';
+import './styles.css';
 
 export function Footer() {
   return (

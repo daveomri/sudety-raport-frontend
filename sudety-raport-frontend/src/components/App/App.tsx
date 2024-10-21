@@ -8,20 +8,20 @@ import {
   from
  } from '@apollo/client';
 
- import { onError } from '@apollo/client/link/error';
+import { onError } from '@apollo/client/link/error';
 
-import { Header } from './Header';
-import { Footer } from './Footer';
+import { Header } from '../Header/Header';
+import { Footer } from '../Footer/Footer';
 import { 
   BrowserRouter as  Router, 
   Routes, 
   Route 
 } from 'react-router-dom';
 
-import { Categories } from './Categories';
-import { LandingPage } from './LandingPage/LandingPage';
-import { SectionPage } from './SectionPage/SectionPage';
-import { PostPage } from './PostPage/PostPage';
+import { Categories } from '../Categories';
+import { LandingPage } from '../LandingPage/LandingPage';
+import { SectionPage } from '../SectionPage/SectionPage';
+import { PostPage } from '../PostPage/PostPage';
 
 const errorLink = onError(({ graphQLErrors, networkError }) => {
   if (graphQLErrors) {

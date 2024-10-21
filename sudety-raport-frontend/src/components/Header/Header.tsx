@@ -1,4 +1,10 @@
-import React, { useState, useContext } from 'react';
+import React, { 
+  useState, 
+  useContext, 
+  MouseEventHandler, 
+  useMemo,
+  useCallback
+} from 'react';
 import { 
   AppBar, 
   Slide, 
@@ -11,12 +17,12 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import MenuIcon from '@mui/icons-material/Menu';
-import { Categories, CategoryTranslate } from './Categories';
-import { LangContext } from './App';
+import { Categories, CategoryTranslate } from '../Categories';
+import { LangContext } from '../App/App';
 
-import logo from '../img/fialovozluty-smaller.png';
+import logo from './fialovozluty-smaller.png';
 
-import '../styles/Header.css';
+import './styles.css';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function HideOnScroll(props: Readonly<{
@@ -35,6 +41,25 @@ function HideOnScroll(props: Readonly<{
   );
 }
 
+function getCategories(
+  siteLang: string, 
+  showSidebar: MouseEventHandler<HTMLAnchorElement>) {
+    const links: React.ReactElement[] = [];
+
+  Categories[siteLang].forEach((item, index) => {
+    links.push(
+      <li key={item.path} className={item.cName}>
+        <Link onClick={showSidebar} to={item.path}>
+          {item.icon}
+          <span>{item.title}</span>
+        </Link>
+      </li>
+    );
+  });
+
+  return links;
+}
+
 export function Header() {
   const location = useLocation();
   const navigate = useNavigate();
@@ -46,7 +71,7 @@ export function Header() {
     event: React.MouseEvent<HTMLElement>,
     newLang: string) => setSiteLang(newLang ?? siteLang);
   
-  const showSidebar = () => setSidebar(!sidebar);
+  const showSidebar = useCallback(() => setSidebar(!sidebar), [setSidebar, sidebar]);
 
   const routeTranslate = (route: string) => {
     if (route === '/') {
@@ -76,6 +101,8 @@ export function Header() {
       navigate(routeTranslate(location.pathname), { replace: true});
     }
   };
+
+  const links = useMemo(() => getCategories(siteLang, showSidebar), [siteLang, showSidebar]);
 
   return (
     <>
@@ -120,16 +147,7 @@ export function Header() {
       </AppBar>
       <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
         <ul className='nav-menu-items'>
-          {Categories[siteLang].map((item, index) => {
-            return (
-              <li key={item.path} className={item.cName}>
-                <Link onClick={showSidebar} to={item.path}>
-                  {item.icon}
-                  <span>{item.title}</span>
-                </Link>
-              </li>
-            );
-          })}
+          {links}
         </ul>
       </nav>
     </>

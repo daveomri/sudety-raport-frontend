@@ -10,7 +10,7 @@ import { LOAD_SECTION_POSTS } from '../../graphql/Queries';
 
 import { CategoryTranslate, LangTranslate } from '../Categories'
 
-import { LangContext } from '../App';
+import { LangContext } from '../App/App';
 
 interface Post {
   node: {

@@ -31,9 +31,7 @@ export function Footer() {
           theme.palette.mode === "light"
             ? theme.palette.grey[200]
             : theme.palette.grey[800],
-        p: 6,
-      }}
-    >
+        p: 6,}}>
       <Container maxWidth="lg">
         <Grid container spacing={5}>
           <Grid item xs={12} sm={4}>
@@ -49,59 +47,50 @@ export function Footer() {
               Newsletter
             </Typography>
             <Grid container spacing={1}>
-              <Grid item sm={12}>
-              <TextField
-                  variant="outlined"
-                  label="Your Email"
-                  fullWidth
-                  InputProps={{
-                    endAdornment: (
-                      <InputAdornment position="end">
-                        <IconButton onClick={(e) => console.log(e)} edge="end">
-                          <Send />
-                        </IconButton>
-                      </InputAdornment>
-                    ),
-                  }}
-                />
+              <Grid item sm={12} className="newsletter-wrap">
+                <TextField
+                    variant="outlined"
+                    label="Your Email"
+                    fullWidth
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton onClick={(e) => console.log(e)} edge="end">
+                            <Send />
+                          </IconButton>
+                        </InputAdornment>
+                      ),
+                    }}/>
               </Grid>
             </Grid>
           </Grid>
-          <Grid item xs={12} sm={4} spacing={2}>
+          <Grid item xs={12} sm={4} spacing={2} className="links">
             <Typography variant="h6" color="text.primary" gutterBottom>
               Contacts
             </Typography>
             <Link 
               href="https://twitter.com/SudetyRaport" 
-              color="inherit"
-              sx={{ pl: 1, pr: 1 }}>
+              color="inherit">
               <Twitter fontSize="medium" />
             </Link>
             <Link
               href="https://www.instagram.com/sudetyraport/"
-              color="inherit"
-              sx={{ pl: 1, pr: 1 }}>
+              color="inherit">
               <Instagram fontSize="medium" />
             </Link>
-            
             <Link 
               href="https://www.facebook.com/profile.php?id=100079996757537" 
-              color="inherit"
-              sx={{ pl: 1, pr: 1 }}>
+              color="inherit">
               <Facebook fontSize="medium" />
             </Link>
-
             <Link 
               href="https://www.tiktok.com/@sudetyraport" 
-              color="inherit"
-              sx={{ pl: 1, pr: 1 }}>
+              color="inherit">
               <TikTokIcon />
             </Link>
-
             <Link 
               href="mailto:info@sudetyraport.com" 
-              color="inherit"
-              sx={{ pl: 1, pr: 1 }}>
+              color="inherit">
               <Email fontSize="medium" />
             </Link>
           </Grid>
@@ -120,4 +109,3 @@ export function Footer() {
     </Box>
   );
 }
-

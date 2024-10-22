@@ -22,6 +22,7 @@ import { Categories } from '../Categories';
 import { LandingPage } from '../LandingPage/LandingPage';
 import { SectionPage } from '../SectionPage/SectionPage';
 import { PostPage } from '../PostPage/PostPage';
+import { OldPostUrlRedirect } from '../OldPostUrlRedirect/OldPostUrlRedirect';
 
 const errorLink = onError(({ graphQLErrors, networkError }) => {
   if (graphQLErrors) {
@@ -58,6 +59,7 @@ const generateRoutes = () => {
       slug: string
     }) => {
       routes.push(<Route key={item.path} path={item.path} element={<SectionPage category={item} />} />);
+      // remove the following code and replace it with basic route with id for category and post
       routes.push(<Route key={`${item.path}/:id`} path={`${item.path}/:postID`} element={<PostPage category={item.slug} />} />);
     })
   });
@@ -80,7 +82,9 @@ export const App = () => {
             <Header />
             <Routes>
               <Route path='/' element={<LandingPage />} />
-                {routes}
+              {routes}
+              <Route path={':postYear/:postMonth/:postID'} element={<OldPostUrlRedirect />} />
+              <Route path={'cs/:postYear/:postMonth/:postID'} element={<OldPostUrlRedirect />} />
               <Route path='*' element={<LandingPage />} />
             </Routes>
           </Router>

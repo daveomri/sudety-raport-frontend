@@ -74,6 +74,12 @@ query($postSlug: ID!) {
       id
       slug
     }
+    categories {
+      nodes {
+        id
+        slug
+      }
+    }
     featuredImage {
       node {
         id

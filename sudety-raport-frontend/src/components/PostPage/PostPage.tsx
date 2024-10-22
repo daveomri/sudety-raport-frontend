@@ -40,6 +40,12 @@ interface Post {
       sourceUrl: string;
     };
   };
+  categories: {
+    nodes: {
+      id: string;
+      slug: string;
+    }[];
+  };
   author: {
     node: {
       id: string;
@@ -75,7 +81,7 @@ export function PostPage(props: Readonly<{
       },
     });
 
-
+    // todo - redirect when unknown category - also add special unknown catory in routes
     useEffect(() => {
       const redirectToPost = (path: string) => {
         window.scrollTo({top: 0, left: 0, behavior: 'smooth'})

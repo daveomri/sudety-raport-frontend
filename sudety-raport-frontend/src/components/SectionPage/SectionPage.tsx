@@ -4,17 +4,13 @@ import {
   useNavigate
 } from 'react-router-dom';
 
-import SectionPagePost from './SectionPagePost';
+import { SectionPagePost } from './SectionPagePost';
 import { useQuery } from '@apollo/client';
-import { LOAD_SECTION_POSTS } from '../graphql/Queries';
+import { LOAD_SECTION_POSTS } from '../../graphql/Queries';
 
-import { CategoryTranslate, LangTranslate } from './Categories'
+import { CategoryTranslate, LangTranslate } from '../Categories'
 
-import { LangContext } from './App';
-
-// api call - https://sudetyraport.com/wp-json/wp/v2/posts?slug=the-best-rap-songs-of-2023
-//      https://sudetyraport.com/wp-json/wp/v2/posts?page=2&per_page=11
-//      https://sudetyraport.com/wp-json/wp/v2/posts?categories=19
+import { LangContext } from '../App/App';
 
 interface Post {
   node: {
@@ -41,7 +37,7 @@ interface Posts {
   }
 }
 
-export default function SectionPage(props: Readonly<{
+export function SectionPage(props: Readonly<{
   category: any;
 }>) {
   const { category } = props;

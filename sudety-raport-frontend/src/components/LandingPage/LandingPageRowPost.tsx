@@ -1,10 +1,10 @@
-import React from 'react';
 import { Paper, Typography } from '@mui/material';
 import parse from 'html-react-parser';
 import { useNavigate } from 'react-router-dom';
 
+import './styles.css';
 
-export default function LandingPageRowPost(props: Readonly<{
+export function LandingPageRowPost(props: Readonly<{
   category: any;
   post: any;
 }>) {
@@ -17,8 +17,8 @@ export default function LandingPageRowPost(props: Readonly<{
   };
 
   return (
-    <div style={{ height: "500px", width: "514px", margin: "16px" }} onClick={redirectToPost}>
-      <Paper style={{ height: "100%", width: "514px" }}>
+    <div className='landing-page-post'>
+      <Paper className='landing-page-post-link' onClick={redirectToPost}>
         <Typography variant='h6'>
         {post.title}
         </Typography>

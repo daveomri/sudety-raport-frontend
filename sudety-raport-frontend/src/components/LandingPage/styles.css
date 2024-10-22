@@ -1,0 +1,17 @@
+.landing-page-row {
+    width: "100%";
+    overflow: "auto"; 
+    display: "flex";
+    height: "5em";
+}
+
+.landing-page-post {
+    height: "500px";
+    width: "514px";
+    margin: "16px";
+}
+
+.landing-page-post-link {
+    height: "100%";
+    width: "514px";
+}

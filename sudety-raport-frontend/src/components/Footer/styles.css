@@ -1,3 +1,16 @@
+.MuiBox-root {
+    text-align: center;
+}
+
+.links > a {
+    padding-left: 4px;
+    padding-right: 4px;
+}
+
+.newsletter-wrap {
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
 
 .sb_footer_section_padding {
     padding: 4rem 4rem;
